@@ -5,7 +5,7 @@
 <title>注册</title>
 <style type="text/css">
 <!--
-#username,#password,#password2{ width:200px;}
+.input{ width:200px;}
 -->
 </style>
 </head>
@@ -27,7 +27,7 @@ if(@isset($_POST['submit']))
 				$flag++;
 				if($flag==$num)
 					{
-					$mysql= "insert into user (id,username,password) values('','$_POST[username]','$_POST[password]')";
+					$mysql= "insert into user (id,sid,username,password,Email,regtime) values('','$_POST[sid]','$_POST[username]','$_POST[password]','$_POST[Email]',now())";
 					mysql_query($mysql);
 					echo "<script language=\"javascript\"> alert('注册成功'); </script>";
 					echo"<script language=\"javascript\">location.href='index.php';</script>";break;
@@ -35,28 +35,46 @@ if(@isset($_POST['submit']))
 			}
 			else
 			{
-				echo "<script language=\"javascript\"> alert('该用户已存在！'); </script>";
+				echo "<script language=\"javascript\"> alert('该用户已存在！'); return false; </script>";
 			}
 		}
 	}
 	else
 	{
-		echo "<script language=\"javascript\"> alert('两次密码不一致，请重新输入！'); </script>";
+		echo "<script language=\"javascript\"> alert('两次密码不一致，请重新输入！'); return false; </script>";
 	}
 }
 ?>
-<form action="" method="post" name="register">
-	<span>学&nbsp;&nbsp;&nbsp;&nbsp;号：</span><input type="text" maxlength="14" name="sid" id="sid" /><br />
-	<span>用&nbsp;户&nbsp;名：</span><input type="text" maxlength="18" name="username" id="username" /><br />
-	<span>密&nbsp;&nbsp;&nbsp;&nbsp;码：</span><input type="password" maxlength="18" name="password" id="password" /><br />
-	<span>确认密码：</span><input type="password" maxlength="18" name="password2" id="password2" /><br />
-	<span>E-mail：</span><input type="text" maxlength="30" name="email" id="email" /><br />
-	<input type="submit" name="submit" value="提交" /><input type="reset" value="重置" /><input type="button" value="已有账号，去登陆" onclick="return login();" />
+<form action="" method="post" name="register" onsubmit="return check();">
+	<span>学&nbsp;&nbsp;&nbsp;&nbsp;号：</span><input class="input" type="text" maxlength="14" name="sid" id="sid" /><br />
+	<span>用&nbsp;户&nbsp;名：</span><input class="input" type="text" maxlength="18" name="username" id="username" /><br />
+	<span>密&nbsp;&nbsp;&nbsp;&nbsp;码：</span><input class="input" type="password" maxlength="18" name="password" id="password" /><br />
+	<span>确认密码：</span><input type="password" class="input" maxlength="18" name="password2" id="password2" /><br />
+	<span>E&nbsp;-&nbsp;mail：</span><input type="text" class="input" maxlength="30" name="Email" id="Email" /><br />
+	<input type="submit" name="submit" value="提交" /><input type="reset" value="重置" /><a href="index.php">已有账号，去登陆</a>
 </form>
 <script language="javascript">
 function login()
 {
 	location.href='index.php';
+}
+function check()
+{
+	if (register.sid.value.length!=14)
+	{
+		alert('请输入14位纯数字学号，忘记请咨询管理员！');
+		return false;
+	}
+	if (/^[\u4e00-\u9fa5]+$/i.test(register.username.value)==false)
+	{
+		alert('用户名为学生姓名，必须为汉字');
+		return false;
+	}
+	if (^[a-zA-Z]\w{0,15}$.test(register.password.value)==false)
+	{
+		alert('密码必须由字母或数字或下划线构成');
+		return false;
+	}
 }
 </script>
 </body>

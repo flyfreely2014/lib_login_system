@@ -8,27 +8,21 @@
 <?php
 	include('link.php');
 	session_start();
-	$user = @$_POST['username'];
-	$password = @$_POST['password'];
+	$user = $_POST['username'];
+	$password = $_POST['password'];
 	$sql = "select * from user ";
 	$query = mysql_query($sql);
 	$num = mysql_num_rows($query);
 	$flag=0;
 	if (@$_POST['submit'])
 	{
-		if(empty($_POST['username'])||empty($_POST['password']))
-		{
-			echo "<script language=\"javascript\"> alert('信息不能为空！'); </script>";
-		}
-		else
-		{
 			while (@$row=mysql_fetch_array($query))
 			{
 				if(($row['username']==$user)&&($row['password']==$password))
 				{
 					$_SESSION['user']=$user;
 					echo"<script language=\"javascript\"> alert('欢迎登录，$_SESSION[user]'); </script>";
-					if($user=='admin')
+					if($user=='郭子成')
 					{
 						echo"<script language=\"javascript\">location.href='userlist.php';</script>";
 					}
@@ -54,12 +48,11 @@
 					}
 				}
 			}
-  		}
   	}
 ?>
-<form action="" method="post" name="login">
-	<span>用户名：</span><input type="text" name="username" maxlength="16" /><br />
-	<span>密&nbsp;&nbsp;&nbsp;&nbsp;码：</span><input type="password" name="password" maxlength="16" /><br />
+<form action="" method="post" name="login" onsubmit="return check();">
+	<span>用户名：</span><input type="text" id="username" name="username" maxlength="16" /><br />
+	<span>密&nbsp;&nbsp;&nbsp;&nbsp;码：</span><input type="password" id="password" name="password" maxlength="16" /><br />
 	<input type="submit" value="登录" name="submit" /><input type="reset" name="reset" value="重置" />
 	<input type="button" name="register" value="注册" onclick="return jump();" />
 </form>
@@ -67,6 +60,19 @@
 function jump()
 {
 	location.href='register.php';
+}
+function check()
+{
+	if (login.username.value=="")
+	{
+		alert('请输入用户名');
+		return false;
+	}
+	if (login.password.value=="")
+	{
+		alert('请输入密码');
+		return false;
+	}
 }
 </script>
 </body>
