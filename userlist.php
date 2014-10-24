@@ -3,14 +3,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>用户列表</title>
+<style>
+*
+{
+    margin: 0;
+    padding: 0;
+}
+table
+{
+    margin: 50px auto;
+    text-align: center;
+}
+</style>
 </head>
 <?php
 include ("link.php");
 ?>
 </head>
 <body>
+<form name="del" method="post" action="delete.php">
 <table id="tb" border="1" width="500" align="center">
-<tr><td>学号</td><td>用户名</td><td>邮箱</td><td>注册时间</td></tr>
+<tr><td>学号</td><td>用户名</td><td>邮箱</td><td>注册时间</td><td>选择</td></tr>
 <?php
     session_start();
     if ($_SESSION['user']!='郭子成')
@@ -57,14 +70,16 @@ include ("link.php");
 		<tr>
         <td><?php echo $row['sid']; ?></td><td><?php echo $row['username']; ?></td>
         <td><?php echo $row['Email']; ?></td><td><?php echo $row['regtime']; ?></td>
+        <td><input type="checkbox" name="chk[]" value="<?php echo $row['id']; ?>" /></td>
         </tr>
         <?php
             }
             //循环显示数据
             while ($row = mysql_fetch_array($rs));
+            echo "<td colspan=\"2\"><a href=\"javascript: document.del.submit();\">删除</a></td><td colspan=\"3\"><a href=\"logout.php\">退出</a></td>";
             echo "</table>";
         ?>
-        <a href="javascript: document.deleteform.submit();">删除</a>
+</form>
 <?php
     }
     echo "<div align='center'> 共".$pages."页(".$page."/".$pages.")";
@@ -81,6 +96,5 @@ include ("link.php");
     }
 ?>
 </table>
-<span><a href="logout.php">退出</a></span>
 </body>
 </html>

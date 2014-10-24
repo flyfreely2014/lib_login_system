@@ -17,10 +17,22 @@
 	}
 	else
 	{
-		$id=$_POST['chk[]'];
-		$sql= "DELETE FROM user WHERE id=$id;";
-		mysql_query($sql);
-		echo "<script language=\"javascript\">alert('删除成功！'); location.href('userlist.php');</script>";
+		$id=$_POST['chk'];
+		foreach($id as $ide)
+		{
+			$exec="DELETE FROM user WHERE id='$ide'";
+			$result=mysql_query($exec);
+			if((mysql_affected_rows()==0) or (mysql_affected_rows==-1))
+			{
+    			echo "<script>alert('删除出错或已删除！');</script>";
+    			echo "<script>location.href='userlist.php';</script>";
+    		}
+			else
+			{
+    			echo "<script>alert('学生信息已经删除！');</script>";
+    			echo "<script>location.href='userlist.php';</script>";
+    		}
+    	}
 	}
 ?>
 </body>

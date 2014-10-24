@@ -4,9 +4,25 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>注册</title>
 <style type="text/css">
-<!--
-.input{ width:200px;}
--->
+*
+{
+	margin: 0;
+	padding: 0;
+}
+.input
+{
+	width:200px;
+}
+.button
+{
+	margin-left: 25px;
+}
+form
+{
+	margin: 200px auto;
+	height: 125px;
+	width: 290px;
+}
 </style>
 </head>
 <body>
@@ -46,12 +62,12 @@ if(@isset($_POST['submit']))
 }
 ?>
 <form action="" method="post" name="register" onsubmit="return check();">
-	<span>学&nbsp;&nbsp;&nbsp;&nbsp;号：</span><input class="input" type="text" maxlength="14" name="sid" id="sid" /><br />
-	<span>用&nbsp;户&nbsp;名：</span><input class="input" type="text" maxlength="18" name="username" id="username" /><br />
-	<span>密&nbsp;&nbsp;&nbsp;&nbsp;码：</span><input class="input" type="password" maxlength="18" name="password" id="password" /><br />
-	<span>确认密码：</span><input type="password" class="input" maxlength="18" name="password2" id="password2" /><br />
-	<span>E&nbsp;-&nbsp;mail：</span><input type="text" class="input" maxlength="30" name="Email" id="Email" /><br />
-	<input type="submit" name="submit" value="提交" /><input type="reset" value="重置" /><a href="index.php">已有账号，去登陆</a>
+	<span>学&nbsp;&nbsp;&nbsp;&nbsp;号：</span><input class="input" type="text" maxlength="14" name="sid" id="sid" onKeyDown="fncKeyStop(event)" onpaste="return false" oncontextmenu="return false;" /><br />
+	<span>用&nbsp;户&nbsp;名：</span><input class="input" type="text" maxlength="18" name="username" id="username" onKeyDown="fncKeyStop(event)" onpaste="return false" oncontextmenu="return false;"/><br />
+	<span>密&nbsp;&nbsp;&nbsp;&nbsp;码：</span><input class="input" type="password" maxlength="18" name="password" id="password" onKeyDown="fncKeyStop(event)" onpaste="return false" oncontextmenu="return false;" /><br />
+	<span>确认密码：</span><input type="password" class="input" maxlength="18" name="password2" id="password2" onKeyDown="fncKeyStop(event)" onpaste="return false" oncontextmenu="return false;" /><br />
+	<span>E&nbsp;-&nbsp;mail：</span><input type="text" class="input" maxlength="30" name="Email" id="Email" onKeyDown="fncKeyStop(event)" onpaste="return false" oncontextmenu="return false;" /><br />
+	<input type="submit" class="button" name="submit" value="提交" /><input type="reset" class="button" value="重置" /><a href="index.php">已有账号，去登陆</a>
 </form>
 <script language="javascript">
 function login()
@@ -60,7 +76,7 @@ function login()
 }
 function check()
 {
-	if (register.sid.value.length!=14)
+	/*if (^\d{14}$.test(register.sid.value)==false)
 	{
 		alert('请输入14位纯数字学号，忘记请咨询管理员！');
 		return false;
@@ -70,9 +86,14 @@ function check()
 		alert('用户名为学生姓名，必须为汉字');
 		return false;
 	}
-	if (^[a-zA-Z]\w{0,15}$.test(register.password.value)==false)
+	if (^[a-zA-Z]\w{0,15}.test(register.password.value)==false)
 	{
 		alert('密码必须由字母或数字或下划线构成');
+		return false;
+	}*/
+	if ((register.sid.value=="")||(register.username.value=="")||(register.password.value=="")||(register.password2.value=="")||(register.Email.value==""))
+	{
+		alert('输入不能为空！');
 		return false;
 	}
 }

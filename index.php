@@ -3,6 +3,25 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>欢迎登录--图书馆登录系统</title>
+<style type="text/css">
+*
+{
+	margin: 0;
+	padding: 0;
+}
+#login
+{
+	margin: 200px auto;
+	height: 80px;
+	width: 215px;
+}
+.button
+{
+	float: left;
+	margin-left: 25px;
+	margin-top: 15px;
+}
+</style>
 </head>
 <body>
 <?php
@@ -50,11 +69,10 @@
 			}
   	}
 ?>
-<form action="" method="post" name="login" onsubmit="return check();">
+<form action="" method="post" name="login" id="login" onsubmit="return check();">
 	<span>用户名：</span><input type="text" id="username" name="username" maxlength="16" /><br />
-	<span>密&nbsp;&nbsp;&nbsp;&nbsp;码：</span><input type="password" id="password" name="password" maxlength="16" /><br />
-	<input type="submit" value="登录" name="submit" /><input type="reset" name="reset" value="重置" />
-	<input type="button" name="register" value="注册" onclick="return jump();" />
+	<span>密&nbsp;&nbsp;码：</span><input type="password" id="password" name="password" maxlength="16" /><br />
+	<input type="submit" class="button" value="登录" name="submit" /><input type="reset" class="button" name="reset" value="重置" /><input type="button" class="button" name="register" value="注册" onclick="return jump();" />
 </form>
 <script language="javascript">
 function jump()
